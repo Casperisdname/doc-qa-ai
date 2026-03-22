@@ -41,7 +41,7 @@ export default function Sidebar({ setFile, currentFile }: SidebarProps) {
       formData.append('file', selectedFile)
 
       // 2. Upload to FastAPI
-      const response = await fetch('http://localhost:8000/upload', {
+      const response = await fetch('http://localhost:8002/upload', {
         method: 'POST',
         body: formData,
       })

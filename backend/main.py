@@ -26,12 +26,22 @@ history = []
 @app.post("/upload")
 @limiter.limit("10/minute")
 async def upload(request: Request, file: UploadFile = File(...)):
+    if not file.filename.endswith(".pdf"):
+        return {"error": "Only PDF files are supported"}
+    
     contents = await file.read()
-    index, chunks = build_index(contents)
-    store["index"] = index
-    store["chunks"] = chunks
-    return {"message": f"Document indexed with {len(chunks)} chunks"}
-
+    
+    if len(contents) == 0:
+        return {"error": "Empty file received"}
+    
+    try:
+        index, chunks = build_index(contents)
+        store["index"] = index
+        store["chunks"] = chunks
+        return {"message": f"Document indexed with {len(chunks)} chunks"}
+    except Exception as e:
+        return {"error": f"Failed to process PDF: {str(e)}"}
+        
 @app.post("/ask")
 @limiter.limit("20/minute")
 async def ask(request: Request, question: str = Form(...)):

@@ -43,7 +43,7 @@ export default function ChatInterface({ fileActive }: { fileActive: boolean }) {
       const formData = new FormData()
       formData.append('question', input)
 
-      const response = await fetch('http://localhost:8000/ask', {
+      const response = await fetch('http://localhost:8002/ask', {
         method: 'POST',
         body: formData, // FastAPI Form(...) expects FormData
       })
