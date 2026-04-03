@@ -22,10 +22,11 @@ function Hi() {
     formData.append("file", file);
 
     try {
-      const res = await fetch("http://localhost:8000/upload", {
+      const res = await fetch("https://doc-qa-ai-2.onrender.com/upload", {
         method: "POST",
         body: formData,
       });
+
       const data = await res.json();
       alert(data.message || data.error);
     } catch (err) {
@@ -42,10 +43,11 @@ function Hi() {
     formData.append("question", question);
 
     try {
-      const res = await fetch("http://localhost:8000/ask", {
+      const res = await fetch("https://doc-qa-ai-2.onrender.com/ask", {
         method: "POST",
         body: formData,
       });
+
       const data = await res.json();
       setResponse(data.answer);
     } catch (err) {
@@ -72,6 +74,7 @@ function Hi() {
       <button className="ask" onClick={handleAsk}>
         Ask Ai
       </button>
+
       <button className="upload-docs" onClick={handleUpload}>
         Upload PDF
       </button>
