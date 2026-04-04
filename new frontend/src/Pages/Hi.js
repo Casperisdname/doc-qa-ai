@@ -22,10 +22,11 @@ function Hi() {
     formData.append("file", file);
 
     try {
-      const res = await fetch("https://doc-qa-ai-2.onrender.com/upload", {
-        method: "POST",
-        body: formData,
-      });
+     const res = await fetch("https://doc-qa-ai-2.onrender.com/ask", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ question }),
+});
 
       const data = await res.json();
       alert(data.message || data.error);
